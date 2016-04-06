@@ -1,0 +1,382 @@
+<md-toolbar layout="row">
+    <md-button
+            class="menu"
+            ng-click="ul.toggleList()" aria-label="Show User List">
+
+        <md-icon md-svg-icon="menu"></md-icon>
+
+    </md-button>
+    <h3>Angular Material - Starter App</h3>
+</md-toolbar>
+
+
+<!-- Container #2 -->
+<div flex layout="row">
+    <md-sidenav md-is-locked-open="true" class="md-whiteframe-z2">
+        <md-content flex role="navigation">
+            <md-list flex layout-margin>
+
+                <md-list-item class="md-1-line" ng-click="null">
+                    <i class="fa fa-lg fa-dashboard" layout-margin></i>
+                    <h4>Dashboard</h4>
+                </md-list-item>
+                <md-list-item class="md-1-line" ng-click="null">
+                    <i class="fa fa-lg fa-briefcase" layout-margin></i>
+                    <h4>Jobs</h4>
+                </md-list-item>
+                <md-list-item class="md-1-line" ng-click="null">
+                    <i class="fa fa-lg fa-server" layout-margin></i>
+                    <h4>Devices</h4>
+                </md-list-item>
+                <md-list-item class="md-1-line" ng-click="null">
+                    <i class="fa fa-lg fa-cogs" layout-margin></i>
+                    <h4>Settings</h4>
+                </md-list-item>
+
+                <md-divider></md-divider>
+        </md-content>
+        <md-content layout="row" layout-align="center end">
+            <div class="md-caption">
+                Version:5.0.1-SNAPSHOT
+            </div>
+        </md-content>
+    </md-sidenav>
+    <md-content flex id="content">
+        <div flex layout="column">
+            <h2 class="pageTitle"> User and Security Management </h2>
+            <div flex layout="row" layout-align="start center" layout-margin>
+                <div flex layout="column" layout-align="center center" layout-margin>
+                    <md-whiteframe class="md-whiteframe-9dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout=""
+                                   layout-align="center center">
+                        <h2>Add User</h2>
+                        <div class="col-sm-12">
+                            <i class="agent-job-badge-icon fa fa-plus arrowPointer" ng-click="addUser()"></i>
+                        </div>
+                        <div class="row"></div>
+                        <h2>View All Log Entries</h2>
+                        <div class="col-sm-12">
+                            <i class="agent-job-badge-icon fa fa-search arrowPointer" ng-click="viewAllUserLogs()"></i>
+                        </div>
+                    </md-whiteframe>
+                    <md-whiteframe class="md-whiteframe-9dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout=""
+                                   layout-align="center center">
+
+                        <h2>Total Users</h2>
+                        <div class="col-sm-6">
+                            <i class="fa fa-user agent-job-badge-icon"></i>
+                        </div>
+                        <div class="col-sm-6">
+                            <h1 class="ng-binding">2</h1>
+                        </div>
+
+                        <div class="row"></div>
+
+                        <h2>Total Log Entries</h2>
+                        <div class="col-sm-6">
+                            <i class="fa fa-bookmark-o agent-job-badge-icon"></i>
+                        </div>
+                        <div class="col-sm-6">
+                            <h1 class="ng-binding">90</h1>
+                        </div>
+                    </md-whiteframe>
+                </div>
+                <md-whiteframe class="md-whiteframe-9dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="35" layout=""
+                               layout-align="center center">
+                    <div class="col-sm-12 tile">
+                        <div class="col-md-5">
+                            <p class="input-group">
+                                <input name="dt" type="text"
+                                       class="form-control ng-pristine ng-untouched ng-isolate-scope ng-empty ng-invalid ng-invalid-required ng-valid-date"
+                                       datepicker-popup="yyyy/MM/dd" ng-model="dtMin" is-open="status.opened"
+                                       min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
+                                       required="required"><!-- ngIf: isOpen -->
+                                <span class="input-group-btn"><button type="button" class="btn btn-default"
+                                                                      ng-click="open($event)"><i
+                                        class="glyphicon glyphicon-calendar"></i></button></span>
+                            </p>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="input-group">
+                                <input name="dtSecond" type="text"
+                                       class="form-control ng-pristine ng-untouched ng-isolate-scope ng-empty ng-invalid ng-invalid-required ng-valid-date"
+                                       datepicker-popup="yyyy/MM/dd" ng-model="dtMax" is-open="status2.opened"
+                                       min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
+                                       required="required"><!-- ngIf: isOpen -->
+                                <span class="input-group-btn"><button type="button" class="btn btn-default"
+                                                                      ng-click="open2($event)"><i
+                                        class="glyphicon glyphicon-calendar"></i></button></span>
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-default"
+                                    ng-disabled="(dtMin == undefined) || (dtMax == undefined)"
+                                    ng-click="getChartRefreshData(dtMin,dtMax)" disabled="disabled"><i
+                                    class="fa fa-refresh"></i></button>
+                        </div>
+                        <div class="col-md-12">
+                            <h5 class="text-center">User Logs</h5>
+                            <nvd3 options="options" data="chartData" config="config" class="ng-isolate-scope">
+                                <svg height="300px" width="100%" class="nvd3-svg" style="height: 300px; width: 100%;">
+                                    <g class="nvd3 nv-wrap nv-discreteBarWithAxes">
+                                        <g transform="translate(55,20)">
+                                            <defs>
+                                                <clipPath id="nv-x-label-clip-7530">
+                                                    <rect width="102.8360655737705" height="16"
+                                                          x="-51.41803278688525"></rect>
+                                                </clipPath>
+                                            </defs>
+                                            <g class="nv-x nv-axis nvd3-svg" transform="translate(0,220)">
+                                                <g class="nvd3 nv-wrap nv-axis">
+                                                    <g>
+                                                        <g class="tick zero" transform="translate(62.844261169433594,0)"
+                                                           style="opacity: 1;">
+                                                            <line y2="-220" x2="0"></line>
+                                                            <text dy=".71em" y="3" transform="translate(0,0)" x="0"
+                                                                  style="text-anchor: middle; fill: white;">2016-03-31
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick zero" transform="translate(177.10655212402344,0)"
+                                                           style="opacity: 1;">
+                                                            <line y2="-220" x2="0"></line>
+                                                            <text dy=".71em" y="3" transform="translate(0,0)" x="0"
+                                                                  style="text-anchor: middle; fill: white;">2016-04-01
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick zero" transform="translate(291.3688659667969,0)"
+                                                           style="opacity: 1;">
+                                                            <line y2="-220" x2="0"></line>
+                                                            <text dy=".71em" y="3" transform="translate(0,0)" x="0"
+                                                                  style="text-anchor: middle; fill: white;">2016-04-02
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick zero" transform="translate(405.6311340332031,0)"
+                                                           style="opacity: 1;">
+                                                            <line y2="-220" x2="0"></line>
+                                                            <text dy=".71em" y="3" transform="translate(0,0)" x="0"
+                                                                  style="text-anchor: middle; fill: white;">2016-04-03
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick zero" transform="translate(519.8934326171875,0)"
+                                                           style="opacity: 1;">
+                                                            <line y2="-220" x2="0"></line>
+                                                            <text dy=".71em" y="3" transform="translate(0,0)" x="0"
+                                                                  style="text-anchor: middle; fill: white;">2016-04-04
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick zero" transform="translate(634.15576171875,0)"
+                                                           style="opacity: 1;">
+                                                            <line y2="-220" x2="0"></line>
+                                                            <text dy=".71em" y="3" transform="translate(0,0)" x="0"
+                                                                  style="text-anchor: middle; fill: white;">2016-04-05
+                                                            </text>
+                                                        </g>
+                                                        <path class="domain" d="M0,0V0H697V0"></path>
+                                                        <text class="nv-axislabel" text-anchor="middle" y="36"
+                                                              x="348.49999999999994" style="fill: white;">Date
+                                                        </text>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                            <g class="nv-y nv-axis nvd3-svg">
+                                                <g class="nv-zeroLine">
+                                                    <line x1="0" x2="697" y1="220" y2="220"></line>
+                                                </g>
+                                                <g class="nvd3 nv-wrap nv-axis">
+                                                    <g>
+                                                        <g class="tick zero" transform="translate(0,220)"
+                                                           style="opacity: 1;">
+                                                            <line x2="697" y2="0"></line>
+                                                            <text dy=".32em" x="-3" opacity="0"
+                                                                  style="text-anchor: end; fill: white;" y="0">0.0
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick" transform="translate(0,185.33333333333334)"
+                                                           style="opacity: 1;">
+                                                            <line x2="697" y2="0"></line>
+                                                            <text dy=".32em" x="-3" opacity="1"
+                                                                  style="text-anchor: end; fill: white;" y="0">0.5
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick" transform="translate(0,150.66666666666669)"
+                                                           style="opacity: 1;">
+                                                            <line x2="697" y2="0"></line>
+                                                            <text dy=".32em" x="-3" opacity="1"
+                                                                  style="text-anchor: end; fill: white;" y="0">1.0
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick" transform="translate(0,116)"
+                                                           style="opacity: 1;">
+                                                            <line x2="697" y2="0"></line>
+                                                            <text dy=".32em" x="-3" opacity="1"
+                                                                  style="text-anchor: end; fill: white;" y="0">1.5
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick" transform="translate(0,81.33333333333334)"
+                                                           style="opacity: 1;">
+                                                            <line x2="697" y2="0"></line>
+                                                            <text dy=".32em" x="-3" opacity="1"
+                                                                  style="text-anchor: end; fill: white;" y="0">2.0
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick" transform="translate(0,46.66666666666666)"
+                                                           style="opacity: 1;">
+                                                            <line x2="697" y2="0"></line>
+                                                            <text dy=".32em" x="-3" opacity="1"
+                                                                  style="text-anchor: end; fill: white;" y="0">2.5
+                                                            </text>
+                                                        </g>
+                                                        <g class="tick" transform="translate(0,12)" opacity="0"
+                                                           style="opacity: 1;">
+                                                            <line x2="697" y2="0"></line>
+                                                            <text dy=".32em" x="-3" opacity="0"
+                                                                  style="text-anchor: end; fill: white;" y="0">3.0
+                                                            </text>
+                                                        </g>
+                                                        <path class="domain" d="M0,12H0V220H0"></path>
+                                                        <text class="nv-axislabel" transform="rotate(-90)" y="-80"
+                                                              x="-110" style="text-anchor: middle; fill: white;">Y Axis
+                                                        </text>
+                                                    </g>
+                                                    <g class="nv-axisMaxMin nv-axisMaxMin-y nv-axisMin-y"
+                                                       transform="translate(0,220)">
+                                                        <text dy=".32em" y="0" x="-3" text-anchor="end"
+                                                              style="opacity: 1; fill: white;">0.0
+                                                        </text>
+                                                    </g>
+                                                    <g class="nv-axisMaxMin nv-axisMaxMin-y nv-axisMax-y"
+                                                       transform="translate(0,12)">
+                                                        <text dy=".32em" y="0" x="-3" text-anchor="end"
+                                                              style="opacity: 1; fill: white;">3.0
+                                                        </text>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                            <g class="nv-barsWrap nvd3-svg">
+                                                <g class="nvd3 nv-wrap nv-discretebar" transform="translate(0,0)">
+                                                    <g>
+                                                        <g class="nv-groups">
+                                                            <g class="nv-group nv-series-0"
+                                                               style="stroke-opacity: 1; fill-opacity: 0.75;">
+                                                                <g transform="translate(16.56803321838379,12)"
+                                                                   class="nv-bar positive"
+                                                                   style="fill: rgb(31, 119, 180); stroke: rgb(31, 119, 180);">
+                                                                    <rect height="208" width="92.55245901639346"
+                                                                          class="discreteBar"></rect>
+                                                                    <text text-anchor="middle" style="fill: white;"
+                                                                          y="-4" x="46.27622950819673">3
+                                                                    </text>
+                                                                </g>
+                                                                <g transform="translate(130.830322265625,219)"
+                                                                   class="nv-bar positive"
+                                                                   style="fill: rgb(174, 199, 232); stroke: rgb(174, 199, 232);">
+                                                                    <rect height="1" width="92.55245901639346"
+                                                                          class="discreteBar"></rect>
+                                                                    <text text-anchor="middle" style="fill: white;"
+                                                                          y="-4" x="46.27622950819673">0
+                                                                    </text>
+                                                                </g>
+                                                                <g transform="translate(245.09262084960938,219)"
+                                                                   class="nv-bar positive"
+                                                                   style="fill: rgb(255, 127, 14); stroke: rgb(255, 127, 14);">
+                                                                    <rect height="1" width="92.55245901639346"
+                                                                          class="discreteBar"></rect>
+                                                                    <text text-anchor="middle" style="fill: white;"
+                                                                          y="-4" x="46.27622950819673">0
+                                                                    </text>
+                                                                </g>
+                                                                <g transform="translate(359.35491943359375,219)"
+                                                                   class="nv-bar positive"
+                                                                   style="fill: rgb(255, 187, 120); stroke: rgb(255, 187, 120);">
+                                                                    <rect height="1" width="92.55245901639346"
+                                                                          class="discreteBar"></rect>
+                                                                    <text text-anchor="middle" style="fill: white;"
+                                                                          y="-4" x="46.27622950819673">0
+                                                                    </text>
+                                                                </g>
+                                                                <g transform="translate(473.6172180175781,219)"
+                                                                   class="nv-bar positive"
+                                                                   style="fill: rgb(44, 160, 44); stroke: rgb(44, 160, 44);">
+                                                                    <rect height="1" width="92.55245901639346"
+                                                                          class="discreteBar"></rect>
+                                                                    <text text-anchor="middle" style="fill: white;"
+                                                                          y="-4" x="46.27622950819673">0
+                                                                    </text>
+                                                                </g>
+                                                                <g transform="translate(587.8795166015625,12)"
+                                                                   class="nv-bar positive"
+                                                                   style="fill: rgb(152, 223, 138); stroke: rgb(152, 223, 138);">
+                                                                    <rect height="208" width="92.55245901639346"
+                                                                          class="discreteBar"></rect>
+                                                                    <text text-anchor="middle" style="fill: white;"
+                                                                          y="-4" x="46.27622950819673">3
+                                                                    </text>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                            <g class="nv-legendWrap"></g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </nvd3>
+                        </div>
+                    </div>
+                </md-whiteframe>
+            </div>
+
+            <md-whiteframe class="md-whiteframe-9dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="50" layout=""
+                           layout-align="center center">
+                <div style="position: relative;">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <!--
+                            <th>Password</th>
+                            -->
+                            <th>Role</th>
+                            <th>Date Added</th>
+                            <th>Last Logged In</th>
+                            <th>Edit</th>
+                            <th>View Users's Entries</th>
+                            <th>Delete User</th>
+                        </tr>
+                        <!-- ngRepeat: user in users -->
+                        <tr>
+                            <td class="">56f2b8a0cd7338182f63ca68</td>
+                            <td class="">seven10</td>
+                            <!--
+                            <td>********</td>
+                            -->
+                            <td class="">ADMINISTRATOR</td>
+                            <td class="">Mar 23, 2016 11:39:12 AM</td>
+                            <td class="">Mar 23, 2016 11:39:12 AM</td>
+                            <td><a ng-href="#" ng-click="updateUser(user.id)" href="#">Edit</a></td>
+                            <td><a ng-href="#" ng-click="viewUserLogs(user.id)" href="#">View</a></td>
+                            <td><a ng-href="#" ng-click="deleteUser(user.id,user.username)" href="#">Delete</a></td>
+                        </tr><!-- end ngRepeat: user in users -->
+                        <tr>
+                            <td class="">56f2b8a0cd7338182f63ca69</td>
+                            <td class="">secadmin</td>
+                            <!--
+                            <td>********</td>
+                            -->
+                            <td class="">SECURITY_ADMINISTRATOR</td>
+                            <td class="">Mar 23, 2016 11:39:12 AM</td>
+                            <td class="">Mar 23, 2016 11:39:12 AM</td>
+                            <td><a ng-href="#" ng-click="updateUser(user.id)" href="#">Edit</a></td>
+                            <td><a ng-href="#" ng-click="viewUserLogs(user.id)" href="#">View</a></td>
+                            <td><a ng-href="#" ng-click="deleteUser(user.id,user.username)" href="#">Delete</a></td>
+                        </tr><!-- end ngRepeat: user in users -->
+                        </tbody>
+                    </table>
+                </div>
+            </md-whiteframe>
+        </div>
+    </md-content>
+</div>
